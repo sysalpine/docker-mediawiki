@@ -13,3 +13,8 @@ RUN curl --output /tmp/math.tar ${MATH_EXTENSION_URL} \
     && tar xf /tmp/math.tar -C /var/www/html/extensions \
     && chown www-data:www-data -R /var/www/html/extensions/Math \
     && rm -rf /tmp/math.tar
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]
