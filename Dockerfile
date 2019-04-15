@@ -16,6 +16,10 @@ RUN curl --output /tmp/math.tar ${MATH_EXTENSION_URL} \
     && chown www-data:www-data -R /var/www/html/extensions/Math \
     && rm -rf /tmp/math.tar
 
+## Apache Security
+RUN a2enmod headers
+COPY security.conf /etc/apache2/conf-available/security.conf
+
 ## Customize PHP Settings
 COPY mediawiki.ini /usr/local/etc/php/conf.d/mediawiki.ini
 
