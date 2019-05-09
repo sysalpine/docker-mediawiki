@@ -1,4 +1,4 @@
-FROM mediawiki:1.32.0
+FROM mediawiki:1.32.1
 
 ENV PHP_MEMORY_LIMIT=128M \
     PHP_MAX_UPLOAD_SIZE=16M \
@@ -7,7 +7,7 @@ ENV PHP_MEMORY_LIMIT=128M \
 
 ## Redis Support
 RUN echo "no\n" | pecl install redis-${REDIS_VERSION} \
-	  && docker-php-ext-enable redis \
+    && docker-php-ext-enable redis \
     && rm -rf /tmp/pear
 
 ## Install Math Extension
