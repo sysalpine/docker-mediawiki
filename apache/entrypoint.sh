@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Customize PHP Configuration
+sed -i "s/memory_limit=.*/memory_limit=${PHP_MEMORY_LIMIT}/g" /usr/local/etc/php/conf.d/mediawiki.ini
+sed -i "s/post_max_size=.*/post_max_size=${PHP_MAX_UPLOAD_SIZE}/g" /usr/local/etc/php/conf.d/mediawiki.ini
+sed -i "s/upload_max_filesize=.*/upload_max_filesize=${PHP_MAX_UPLOAD_SIZE}/g" /usr/local/etc/php/conf.d/mediawiki.ini
+
 # Create Symlink for LocalSettings.php (Better Support for config volumes and k8s configmaps)
 ln -sf /var/www/html/config/LocalSettings.php /var/www/html/LocalSettings.php
 
