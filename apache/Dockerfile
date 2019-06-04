@@ -1,4 +1,4 @@
-FROM php:7.3.5-apache-stretch
+FROM php:7.3.6-apache-stretch
 
 ENV MEDIAWIKI_MAJOR_VERSION=1.32 \
     MEDIAWIKI_BRANCH=REL1_32 \
