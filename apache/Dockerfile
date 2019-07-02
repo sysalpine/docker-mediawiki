@@ -6,7 +6,8 @@ ENV MEDIAWIKI_MAJOR_VERSION=1.32 \
     MEDIAWIKI_SHA512=79f13245fe2a8851780ac9f38c3f439a4911f6760e810712922b18c577e3ee6e4b0f3e336c567f6115258aebd5fc5e7c6c1045f43b5d0f615bfdcfb54fd16335 \
     PHP_MEMORY_LIMIT=128M \
     PHP_MAX_UPLOAD_SIZE=16M \
-    MATH_EXTENSION_URL=https://extdist.wmflabs.org/dist/extensions/Math-REL1_32-b976708.tar.gz
+    MATH_EXTENSION_URL=https://extdist.wmflabs.org/dist/extensions/Math-REL1_32-b976708.tar.gz \
+    MATHJAX_EXTENSION_URL=https://github.com/xeyownt/mediawiki-mathjax/archive/v1.1.0.tar.gz
 
 # System dependencies
 RUN set -ex; \
@@ -105,6 +106,12 @@ RUN curl --output /tmp/math.tar ${MATH_EXTENSION_URL} \
     && tar xf /tmp/math.tar -C /var/www/html/extensions \
     && chown www-data:www-data -R /var/www/html/extensions/Math \
     && rm -rf /tmp/math.tar
+
+## Install Mathjax Extension
+RUN curl --output /tmp/mathjax.tar ${MATHJAX_EXTENSION_URL} \
+    && tar xf /tmp/mathjax.tar -C /var/www/html/extensions \
+    && chown www-data:www-data -R /var/www/html/extensions/MathJax \
+    && rm -rf /tmp/mathjax.tar
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
