@@ -1,12 +1,11 @@
 FROM php:7.3.6-apache-stretch
 
-ENV MEDIAWIKI_MAJOR_VERSION=1.32 \
-    MEDIAWIKI_BRANCH=REL1_32 \
-    MEDIAWIKI_VERSION=1.32.2 \
-    MEDIAWIKI_SHA512=79f13245fe2a8851780ac9f38c3f439a4911f6760e810712922b18c577e3ee6e4b0f3e336c567f6115258aebd5fc5e7c6c1045f43b5d0f615bfdcfb54fd16335 \
+ENV MEDIAWIKI_MAJOR_VERSION=1.33 \
+    MEDIAWIKI_BRANCH=REL1_33 \
+    MEDIAWIKI_VERSION=1.33.0 \
     PHP_MEMORY_LIMIT=128M \
     PHP_MAX_UPLOAD_SIZE=16M \
-    MATH_EXTENSION_URL=https://extdist.wmflabs.org/dist/extensions/Math-REL1_32-b976708.tar.gz
+    MATH_EXTENSION_URL=https://extdist.wmflabs.org/dist/extensions/Math-REL1_33-183fd5c.tar.gz
 
 # System dependencies
 RUN set -ex; \
@@ -37,7 +36,7 @@ RUN set -ex; \
     opcache \
   ; \
   \
-    echo "no\n" | pecl install apcu-5.1.16; \
+    echo "no\n" | pecl install apcu-5.1.17; \
     echo "no\n" | pecl install redis-4.3.0; \
     docker-php-ext-enable \
       apcu \
@@ -95,7 +94,6 @@ RUN mkdir -p /var/www/data \
 
 # MediaWiki setup
 RUN curl -fSL "https://releases.wikimedia.org/mediawiki/${MEDIAWIKI_MAJOR_VERSION}/mediawiki-${MEDIAWIKI_VERSION}.tar.gz" -o mediawiki.tar.gz \
-    && echo "${MEDIAWIKI_SHA512} *mediawiki.tar.gz" | sha512sum -c - \
     && tar -xz --strip-components=1 -f mediawiki.tar.gz \
     && rm mediawiki.tar.gz \
     && chown -R www-data:www-data extensions skins cache images
