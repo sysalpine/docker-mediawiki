@@ -101,14 +101,14 @@ RUN curl -fSL "https://releases.wikimedia.org/mediawiki/${MEDIAWIKI_MAJOR_VERSIO
     && chown -R www-data:www-data extensions skins cache images
 
 # Install Math Extension
-RUN curl --output /tmp/math.tar ${MATH_EXTENSION_URL} \
+RUN curl -fSL -o /tmp/math.tar ${MATH_EXTENSION_URL} \
     && tar xf /tmp/math.tar -C /var/www/html/extensions \
     && chown www-data:www-data -R /var/www/html/extensions/Math \
     && rm -rf /tmp/math.tar
 
 # Install Spoilers Extension
-RUN curl --output /tmp/spoilers.tar.gz ${SPOILERS_EXTENSION_URL} \
-    && tar xzf /tmp/spoilers.tar.gz -C /tmp \
+RUN curl -fSL -o /tmp/spoilers.tar ${SPOILERS_EXTENSION_URL} \
+    && tar xf /tmp/spoilers.tar -C /tmp \
     && mv /tmp/Spoilers-${SPOILERS_EXTENSION_VERSION} /var/www/html/extensions/Spoilers \
     && chown www-data:www-data -R /var/www/html/extensions/Spoilers \
     && rm -rf /tmp/spoilers.tar
