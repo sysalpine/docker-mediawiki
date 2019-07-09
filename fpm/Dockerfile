@@ -92,7 +92,7 @@ RUN curl --output /tmp/math.tar ${MATH_EXTENSION_URL} \
 # Install Spoilers Extension
 RUN curl --output /tmp/spoilers.tar ${SPOILERS_EXTENSION_URL} \
     && tar xf /tmp/spoilers.tar -C /tmp \
-    && mv /tmp/Spoilers-${SPOILERS_EXTENSION_VERSION} /var/www/html/extensions/Spoilers
+    && mv /tmp/Spoilers-${SPOILERS_EXTENSION_VERSION} /var/www/html/extensions/Spoilers \
     && chown www-data:www-data -R /var/www/html/extensions/Spoilers \
     && rm -rf /tmp/spoilers.tar
 
