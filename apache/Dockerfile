@@ -5,7 +5,9 @@ ENV MEDIAWIKI_MAJOR_VERSION=1.33 \
     MEDIAWIKI_VERSION=1.33.0 \
     PHP_MEMORY_LIMIT=128M \
     PHP_MAX_UPLOAD_SIZE=16M \
-    MATH_EXTENSION_URL=https://extdist.wmflabs.org/dist/extensions/Math-REL1_33-183fd5c.tar.gz
+    MATH_EXTENSION_URL=https://extdist.wmflabs.org/dist/extensions/Math-REL1_33-183fd5c.tar.gz \
+    SPOILERS_EXTENSION_VERSION=2.2.0
+    SPOILERS_EXTENSION_URL=https://github.com/Telshin/Spoilers/archive/2.2.0.tar.gz
 
 # System dependencies
 RUN set -ex; \
@@ -98,11 +100,18 @@ RUN curl -fSL "https://releases.wikimedia.org/mediawiki/${MEDIAWIKI_MAJOR_VERSIO
     && rm mediawiki.tar.gz \
     && chown -R www-data:www-data extensions skins cache images
 
-## Install Math Extension
+# Install Math Extension
 RUN curl --output /tmp/math.tar ${MATH_EXTENSION_URL} \
     && tar xf /tmp/math.tar -C /var/www/html/extensions \
     && chown www-data:www-data -R /var/www/html/extensions/Math \
     && rm -rf /tmp/math.tar
+
+# Install Spoilers Extension
+RUN curl --output /tmp/spoilers.tar ${SPOILERS_EXTENSION_URL} \
+    && tar xf /tmp/spoilers.tar -C /tmp \
+    && mv /tmp/Spoilers-${SPOILERS_EXTENSION_VERSION} /var/www/html/extensions/Spoilers
+    && chown www-data:www-data -R /var/www/html/extensions/Spoilers \
+    && rm -rf /tmp/spoilers.tar
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
