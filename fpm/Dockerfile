@@ -5,8 +5,8 @@ ENV MEDIAWIKI_MAJOR_VERSION=1.33 \
     MEDIAWIKI_VERSION=1.33.0 \
     PHP_MEMORY_LIMIT=128M \
     PHP_MAX_UPLOAD_SIZE=16M \
-    MATH_EXTENSION_URL=https://extdist.wmflabs.org/dist/extensions/Math-REL1_33-183fd5c.tar.gz
-    SPOILERS_EXTENSION_VERSION=2.2.0
+    MATH_EXTENSION_URL=https://extdist.wmflabs.org/dist/extensions/Math-REL1_33-183fd5c.tar.gz \
+    SPOILERS_EXTENSION_VERSION=2.2.0 \
     SPOILERS_EXTENSION_URL=https://github.com/Telshin/Spoilers/archive/2.2.0.tar.gz
 
 # System dependencies
