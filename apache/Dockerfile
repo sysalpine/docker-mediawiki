@@ -1,4 +1,4 @@
-FROM php:7.3.8-apache-buster
+FROM php:7.3.9-apache-buster
 
 ENV MEDIAWIKI_MAJOR_VERSION=1.33 \
     MEDIAWIKI_BRANCH=REL1_33 \
